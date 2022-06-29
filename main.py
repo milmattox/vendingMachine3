@@ -14,7 +14,7 @@ itemQuantity = [0,0,0,0,0]
 itemQuantityLabel = [0,0,0,0,0]
 itemPriceLabel = [0,0,0,0,0]
 itemButton = [0,0,0,0,0]
-
+money = 0
 def setQuantities():  #set the starting inventory
     for i in range(len(itemName)):
         itemQuantity[i] =random.randint(1,10)
@@ -24,8 +24,9 @@ def myOrder(itemnum): #if they want a smarties
     itemQuantityLabel[itemnum].config(text=itemQuantity[itemnum])
     
 def myMoney(): #enter money
-    myLabel3 = tk.Label(text=e.get())
-    myLabel3.grid(row=1,column=2)
+    money = float(e.get())
+    myLabel3 = tk.Label(text = "${:,.2f}".format(money))
+    myLabel3.grid(row=1,column=4)
 
 #place acks on window
 ack1 = tk.Label(text="Make Your Selection!")
