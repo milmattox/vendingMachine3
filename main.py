@@ -19,22 +19,33 @@ def setQuantities():  #set the starting inventory
     for i in range(len(itemName)):
         itemQuantity[i] =random.randint(1,10)
         
-def myOrder(itemnum): #if they want a smarties
-    itemQuantity[itemnum]-=1
-    itemQuantityLabel[itemnum].config(text=itemQuantity[itemnum])
+def myOrder(itemnum): #place an order
+  if money > 0:
+    if itemQuantity[itemnum] > 0:
+      itemQuantity[itemnum]-=1
+    else:
+      itemOutLabel.config(text = "This item out: "+ itemName[itemnum])
+  else: 
+      itemOutLabel.config(text = "Enter some cash!")
+  itemQuantityLabel[itemnum].config(text=itemQuantity[itemnum])
     
 def myMoney(): #enter money
+  global money
+  try:
     money = float(e.get())
     myLabel3 = tk.Label(text = "${:,.2f}".format(money))
     myLabel3.grid(row=1,column=4)
-
-#place acks on window
+  except:
+    itemOutLabel.config(text = "Enter some cash!")
+    
 ack1 = tk.Label(text="Make Your Selection!")
 e = tk.Entry(borderwidth=2, width=15) #enter money
 #e.insert(0,"Enter amount")
 cashButton = tk.Button(text="Enter Cash", command=myMoney, bg="lightgreen")
+itemOutLabel = tk.Label(text = "", fg="red")
 #place instructions on grid
 ack1.grid(row=0,column=0, columnspan=4)
+itemOutLabel.grid(row=5,column=0,columnspan=3)
 #place entry box on grid
 e.grid(row=1,column=2, columnspan=2)
 cashButton.grid(row=1,column=0, columnspan=2)
