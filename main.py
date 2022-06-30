@@ -12,8 +12,8 @@ itemQuantity = [0,0,0,0,0]
 itemQuantityLabel = [0,0,0,0,0]
 itemPriceLabel = [0,0,0,0,0]
 itemButton = [0,0,0,0,0]
-orderItems = []
-orderItemsNum = 0
+orderedItems = []
+orderedItemsCount = 0
 money = 0
 def setQuantities():  #set the starting inventory
     for i in range(len(itemName)):
@@ -22,24 +22,29 @@ def setQuantities():  #set the starting inventory
 def myOrder(itemnum): #place an order
   global money
   if money > 0:
-    if itemQuantity[itemnum] > 0:
-      itemQuantity[itemnum]-=1
-      money = money - itemPrice[itemnum]
-      myMoneyLabel.config(text="${:,.2f}".format(money))
+    if money >= itemPrice[itemnum]:
+      if itemQuantity[itemnum] > 0:
+        itemQuantity[itemnum]-=1
+        money = money - itemPrice[itemnum]
+        myMoneyLabel.config(text="${:,.2f}".format(money))
+      else:
+       itemOutLabel.config(text = "This item out: "+ itemName[itemnum])
     else:
-      itemOutLabel.config(text = "This item out: "+ itemName[itemnum])
+      itemOutLabel.config(text = "You don't have enough for a " + itemName[itemnum])
   else: 
-      itemOutLabel.config(text = "Enter some cash!")
+        itemOutLabel.config(text = "Enter some cash!")
   itemQuantityLabel[itemnum].config(text=itemQuantity[itemnum])
     
 def myMoney(): #enter money
   global money
   try:
-    money = float(e.get())
+    money = float(e.get())+ money
     myMoneyLabel.config(text="${:,.2f}".format(money))
+    if money > 0:
+      itemOutLabel.config(text = "Thank you! What would you like?")
   except:
     itemOutLabel.config(text = "Enter some cash!")
-    
+  
 ack1 = tk.Label(text="Make Your Selection!")
 e = tk.Entry(borderwidth=2, width=15) #enter money
 #e.insert(0,"Enter amount")
