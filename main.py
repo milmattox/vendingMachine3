@@ -1,4 +1,6 @@
-#Vending Machine by Michelle Mattox June 27, 2022
+#Vending Machine by Michelle Mattox July 1, 2022
+'''Users should enter an amount and press the Enter Cash button.  Then they select items by clicking each button.  Then press complete order and the change will be calculated.'''
+'''Test Data Enter 100 dollars, click several buttons and complete order.'''
 import tkinter as tk
 from tkinter import *
 import random
